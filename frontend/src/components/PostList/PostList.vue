@@ -7,7 +7,7 @@ defineProps({
 <template>
   <section class="grid grid-cols-3 flex-wrap gap-[20px] w-fit">
     <a
-      class="text-[#fff] decoration-none bg-[#494949] px-[40px] py-[20px] max-w-[350px]"
+      class="text-[#fff] decoration-none px-[40px] py-[20px] max-w-[350px]"
       v-for="post in posts"
       :key="post.id"
       :href="post.attributes.slug ? `/post/` + post.attributes.slug : null"

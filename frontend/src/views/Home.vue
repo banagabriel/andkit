@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar/SearchBar.vue";
 </script>
 
 <template>
-  <main class="max-w-[1040px] w-full mx-auto mt-[50px]">
+  <main class="max-w-[1040px] w-full mx-auto">
     <SearchBar :handleSearchInput="handleSearchInput" />
     <PostList :posts="filteredPosts" />
   </main>

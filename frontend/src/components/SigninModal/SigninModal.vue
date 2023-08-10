@@ -13,7 +13,7 @@ defineProps({
     aria-live="assertive"
     aria-labelledby="modal-title"
   >
-    <div class="flex flex-col bg-[#494949] p-[40px] rounded-[10px]">
+    <div class="flex flex-col p-[40px] rounded-[10px]">
       <div class="flex flex-col mb-[20px]" v-for="input in newUserForm">
         <label class="capitalize text-left mb-[5px]" for="email">{{
           input.label

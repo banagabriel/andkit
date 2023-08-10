@@ -13,7 +13,7 @@ defineProps({
     aria-live="assertive"
     aria-labelledby="modal-title"
   >
-    <div class="flex flex-col bg-[#494949] p-[40px] rounded-[10px] w-[500px]">
+    <div class="flex flex-col p-[40px] rounded-[10px] w-[500px]">
       <div class="flex flex-col mb-[20px]">
         <label class="capitalize text-left mb-[5px]" for="title">Title</label>
         <input

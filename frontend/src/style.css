@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 #app {
+  height: 100vh;
   min-width: 100%;
+  margin: 136px 0 0;
+  background-color: #F5F5F5;
 }
 
 :root {
@@ -13,8 +16,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #F5F5F5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -74,13 +76,6 @@ button:focus-visible {
 
 .card {
   padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 @media (prefers-color-scheme: light) {
