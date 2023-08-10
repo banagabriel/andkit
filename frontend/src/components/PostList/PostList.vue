@@ -1,3 +1,9 @@
+<script setup>
+defineProps({
+  posts: Array,
+});
+</script>
+
 <template>
   <section class="grid grid-cols-3 flex-wrap gap-[20px] w-fit">
     <a
@@ -29,20 +35,6 @@ import axios from "axios";
 
 export default {
   name: "App",
-  data() {
-    return {
-      posts: [],
-    };
-  },
-  async mounted() {
-    try {
-      const response = await axios.get(
-        "http://localhost:1337/api/posts?populate=*&pagination[page]=1&sort[0]=createdAt:desc"
-      );
-      this.posts = response.data.data;
-    } catch (error) {
-      console.log(error);
-    }
-  },
+  data() {},
 };
 </script>
