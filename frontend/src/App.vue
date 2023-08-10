@@ -1,22 +1,17 @@
 <script setup>
 import SignupModal from "./components/SignupModal/SignupModal.vue";
 import SigninModal from "./components/SigninModal/SigninModal.vue";
+import Header from "./components/Header/Header.vue";
 </script>
 
 <template>
-  <header
-    class="fixed flex top-0 left-0 w-full bg-[#494949] py-[10px] px-[30px]"
-  >
-    <div v-if="!username" class="flex gap-[20px]">
-      <button v-on:click="handleSignUpModal()">Sign up</button>
-      <button v-on:click="handleSignInModal()">Sign in</button>
-    </div>
-    <div v-if="username">
-      <p>{{ username }}</p>
-    </div>
-  </header>
+  <Header
+    :handleSignInModal="handleSignInModal"
+    :handleSignUpModal="handleSignUpModal"
+    :username="username"
+  />
   <template v-if="signUpModalOpen">
-    <SignupModal :handleSignUpModal="handleSignUpModal"/>
+    <SignupModal :handleSignUpModal="handleSignUpModal" />
   </template>
   <template v-if="signInModalOpen">
     <SigninModal
@@ -43,7 +38,7 @@ export default {
   },
   watch: {
     username() {
-      localStorage.getItem('userData')
+      localStorage.getItem("userData");
     },
   },
   methods: {

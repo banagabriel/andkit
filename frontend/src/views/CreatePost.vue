@@ -76,7 +76,7 @@ export default {
             Body: this.postInformation.body,
             banner: this.postInformation.banner,
             author: this.postInformation.author,
-            slug: this.postInformation.title.toLowerCase().replace(' ', '-'),
+            slug: this.postInformation.title.toLowerCase().replaceAll(' ', '-'),
             favs: { connect: [{ id: this.postInformation.author }] }
           },
         });
