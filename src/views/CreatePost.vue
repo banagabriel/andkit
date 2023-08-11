@@ -5,7 +5,7 @@
     <h1>Create Post</h1>
     <img
       v-if="!!postInformation.banner"
-      :src="'http://localhost:1337' + postInformation.banner.url"
+      :src="postInformation.banner.url"
       :alt="postInformation.banner.name"
     />
     <form class="flex flex-col items-center gap-[20px]">
@@ -62,7 +62,7 @@ export default {
       const formData = new FormData();
       formData.append("files", this.files[0]);
       const image = await axios.post(
-        "http://localhost:1337/api/upload",
+        "https://wise-dinosaur-ac425bf63d.strapiapp.com/api/upload",
         formData
       );
       this.postInformation.banner = image.data[0];
@@ -70,7 +70,7 @@ export default {
     async createPost(e) {
       e.preventDefault()
       try {
-        await axios.post("http://localhost:1337/api/posts", {
+        await axios.post("https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts", {
           data: {
             Title: this.postInformation.title,
             Body: this.postInformation.body,
@@ -84,6 +84,11 @@ export default {
         console.log(error);
       }
     },
+  },
+  beforeMount() {
+    if (!this.postInformation.author) {
+      this.$router.push('/');
+    }
   },
 };
 </script>

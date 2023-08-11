@@ -2,6 +2,8 @@
 import FavoriteButton from "../FavoriteButton/FavoriteButton.vue";
 defineProps({
   post: Object,
+  signUpModalOpen: Boolean,
+  handleSignUpModal: Function,
 });
 </script>
 
@@ -16,15 +18,16 @@ defineProps({
     <FavoriteButton
       :post="post"
       :user="user"
+      :signUpModalOpen="signUpModalOpen"
+      :handleSignUpModal="handleSignUpModal"
       :isFavorite="isFavorite"
       :handleIsFavoriteChange="handleIsFavoriteChange"
     />
   </div>
-  <div class="post-image-container mb-[31px]">
+  <div class="post-image-container mb-[31px] rounded-[5px]">
     <img
       class="w-full h-[200px] object-cover mb-[20px] rounded-[5px]"
-      :src="
-        'http://localhost:1337' + post.attributes.banner.data.attributes.url
+      :src="post.attributes.banner.data.attributes.url
       "
       alt="Post Image"
     />

@@ -71,7 +71,7 @@ import FavoriteButton from "../components/FavoriteButton/FavoriteButton.vue";
       </div>
     </div>
     <div class="mb-[66px]">
-      <img class="rounded-[5px] mb-[15px]" :src="'http://localhost:1337' + post.attributes.banner.data.attributes.url" :alt="user.username">
+      <img class="rounded-[5px] mb-[15px]" :src="post.attributes.banner.data.attributes.url" alt="this is a post image">
       <p class="text-[#869abb] opacity-[70%]">This is a caption on this photo for reference</p>
     </div>
     <p class="text-left text-[17px] leading-[25px]">{{ post.attributes.Body }}</p>
@@ -115,7 +115,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        `http://localhost:1337/api/posts?populate=*&filters[slug][$eq]=${this.$router.currentRoute.value.params.slug}`
+        `https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts?populate=*&filters[slug][$eq]=${this.$router.currentRoute.value.params.slug}`
       );
       this.post = response.data.data[0];
     } catch (error) {

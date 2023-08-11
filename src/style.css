@@ -1,7 +1,5 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
 
 #app {
   font-family: 'Roboto', sans-serif;
@@ -9,6 +7,10 @@
   min-width: 100%;
   margin: 136px 0 0;
   background-color: #F5F5F5;
+}
+
+input:focus {
+  border: transparent !important;
 }
 
 :root {

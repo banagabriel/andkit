@@ -4,12 +4,13 @@ defineProps({
   user: Object,
   isFavorite: Boolean,
   handleIsFavoriteChange: Function,
+  handleSignUpModal: Function,
+  signUpModalOpen: Boolean,
 });
 </script>
 
 <template>
   <button
-    :disabled="!user"
     :class="[
       isFavorite
         ? `bg-[url('./assets/fav.png')]`
@@ -17,7 +18,7 @@ defineProps({
       'hover:border-transparent bg-no-repeat bg-transparent bg-cover disabled:opacity-75 disabled:hover:border-transparent h-[16px] w-[16px] p-0',
     ]"
     :key="isFavorite"
-    v-on:click="isFavorite ? unfav($event) : fav($event)"
+    v-on:click="handleFavoriteChange($event)"
   ></button>
 </template>
 
@@ -27,10 +28,15 @@ import axios from 'axios';
 export default {
   name: "FavoriteButton",
   methods: {
+    handleFavoriteChange (event) {
+      event.preventDefault();
+      if (!this.user) return this.handleSignUpModal()
+      this.isFavorite ? unfav() : fav()
+    },
     async fav(event) {
       event.preventDefault();
       try {
-        await axios.put(`http://localhost:1337/api/posts/${this.post.id}`, {
+        await axios.put(`https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts/${this.post.id}`, {
           data: {
             favs: {
               connect: [{ id: this.user.id }],
@@ -45,7 +51,7 @@ export default {
     async unfav(event) {
       event.preventDefault();
       try {
-        await axios.put(`http://localhost:1337/api/posts/${this.post.id}`, {
+        await axios.put(`https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts/${this.post.id}`, {
           data: {
             favs: {
               disconnect: [{ id: this.user.id }],

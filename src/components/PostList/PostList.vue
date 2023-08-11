@@ -2,6 +2,8 @@
 import PostPreview from '../PostPreview/PostPreview.vue';
 defineProps({
   posts: Array,
+  signUpModalOpen: Boolean,
+  handleSignUpModal: Function,
 });
 </script>
 
@@ -13,7 +15,7 @@ defineProps({
       :key="post.id"
       :href="post.attributes.slug ? `/post/` + post.attributes.slug : null"
     >
-      <PostPreview :post="post" />
+      <PostPreview :handleSignUpModal="handleSignUpModal" :signUpModalOpen="signUpModalOpen" :post="post" />
     </a>
   </section>
 </template>

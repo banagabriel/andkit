@@ -65,7 +65,7 @@ export default {
     },
     async handleEditPost() {
       try {
-        await axios.put(`http://localhost:1337/api/posts/${this.post.id}`, {
+        await axios.put(`https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts/${this.post.id}`, {
           data: {
             Title: !this.newTitle ? this.post.attributes.Title : this.newTitle,
             Body: !this.newBody ? this.post.attributes.Title : this.newBody,
