@@ -5,7 +5,7 @@ import NotFound from "../components/NotFound/NotFound.vue";
 </script>
 
 <template>
-  <SearchBar :handleSearchInput="handleSearchInput" />
+  <SearchBar :filteredPosts="filteredPosts" :handleSearchInput="handleSearchInput" />
   <template v-if="!filteredPosts.length">
     <NotFound :handleEmptySearchInput="handleEmptySearchInput"/>
   </template>
