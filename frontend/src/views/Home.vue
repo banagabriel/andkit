@@ -1,13 +1,17 @@
 <script setup>
 import PostList from "../components/PostList/PostList.vue";
 import SearchBar from "../components/SearchBar/SearchBar.vue";
+import NotFound from "../components/NotFound/NotFound.vue";
 </script>
 
 <template>
-  <main class="max-w-[1040px] w-full mx-auto">
-    <SearchBar :handleSearchInput="handleSearchInput" />
+  <SearchBar :handleSearchInput="handleSearchInput" />
+  <template v-if="!filteredPosts.length">
+    <NotFound :handleEmptySearchInput="handleEmptySearchInput"/>
+  </template>
+  <template v-else>
     <PostList :posts="filteredPosts" />
-  </main>
+  </template>
 </template>
 
 <script>
@@ -24,6 +28,9 @@ export default {
   methods: {
     handleSearchInput(e) {
       this.searchInput = e.target.value;
+    },
+    handleEmptySearchInput() {
+      this.searchInput = "";
     },
   },
   computed: {

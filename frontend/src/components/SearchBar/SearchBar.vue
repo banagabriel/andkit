@@ -9,7 +9,7 @@ defineProps({
     <input
       class="w-full p-[10px] pl-[45px] bg-[#ffffff] rounded-[6px] text-black"
       type="text"
-      placeholder="Search for a movie"
+      placeholder="Search"
       v-on:keyup="handleSearchInput($event)"
     />
   </div>

@@ -20,7 +20,9 @@ import Header from "./components/Header/Header.vue";
     />
   </template>
   <div :key="username">
-    <router-view />
+    <main class="max-w-[1040px] w-full px-[20px] mx-auto font-[900]">
+      <router-view />
+    </main>
   </div>
 </template>
 

@@ -1,8 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;900&display=swap');
 
 #app {
+  font-family: 'Roboto', sans-serif;
   height: 100vh;
   min-width: 100%;
   margin: 136px 0 0;
@@ -22,6 +24,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+div.post-image-container {
+  clip-path: polygon(0 0, 100% 0, 100% 73%, 90% 82%, 79% 88%, 67% 93%, 53% 96%, 35% 99%, 0 100%);
 }
 
 a {
