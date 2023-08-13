@@ -1,9 +1,8 @@
 <script setup>
 import FavoriteButton from "../FavoriteButton/FavoriteButton.vue";
+import globalContext from "../../helpers/helpers";
 defineProps({
   post: Object,
-  signUpModalOpen: Boolean,
-  handleSignUpModal: Function,
 });
 </script>
 
@@ -12,14 +11,12 @@ defineProps({
     class="absolute z-10 flex items-center justify-between top-[21px] right-[13px] w-[90%]"
   >
     <span
-      class="block bg-[#42BA96] font-[900] rounded-full text-white px-[10px] py-[5px] text-[12px] leading-[14px]">
+      class="block bg-[#42BA96] font-[900] rounded-full text-white px-[10px] py-[5px] text-[12px] leading-[14px]"
+    >
       $49/MO
     </span>
     <FavoriteButton
       :post="post"
-      :user="user"
-      :signUpModalOpen="signUpModalOpen"
-      :handleSignUpModal="handleSignUpModal"
       :isFavorite="isFavorite"
       :handleIsFavoriteChange="handleIsFavoriteChange"
     />
@@ -27,8 +24,7 @@ defineProps({
   <div class="post-image-container mb-[31px] rounded-[5px]">
     <img
       class="w-full h-[200px] object-cover mb-[20px] rounded-[5px]"
-      :src="post.attributes.banner.data.attributes.url
-      "
+      :src="post.attributes.banner.data.attributes.url"
       alt="Post Image"
     />
   </div>
@@ -58,9 +54,6 @@ export default {
   data() {
     return {
       isFavorite: false,
-      user: JSON.parse(localStorage.getItem("userData"))
-        ? JSON.parse(localStorage.getItem("userData"))
-        : null,
     };
   },
   methods: {
@@ -74,7 +67,7 @@ export default {
   },
   async mounted() {
     this.post.attributes.favs.data.forEach((users) => {
-      if (this.user && users.id === this.user.id) {
+      if (globalContext.user && users.id === globalContext.user.id) {
         this.isFavorite = true;
       }
     });

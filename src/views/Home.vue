@@ -2,63 +2,33 @@
 import PostList from "../components/PostList/PostList.vue";
 import SearchBar from "../components/SearchBar/SearchBar.vue";
 import NotFound from "../components/NotFound/NotFound.vue";
-import SignupModal from "../components/SignupModal/SignupModal.vue";
+import globalContext from "../helpers/helpers";
 </script>
 
 <template>
-  <SearchBar :filteredPosts="filteredPosts" :handleSearchInput="handleSearchInput" />
+  <SearchBar :filteredPosts="filteredPosts" />
   <template v-if="!filteredPosts.length">
-    <NotFound :handleEmptySearchInput="handleEmptySearchInput"/>
+    <NotFound />
   </template>
   <template v-else>
-    <PostList :handleSignUpModal="handleSignUpModal" :signUpModalOpen="signUpModalOpen" :posts="filteredPosts" />
-  </template>
-  <template v-if="signUpModalOpen">
-    <SignupModal :handleSignUpModal="handleSignUpModal" />
+    <PostList :posts="filteredPosts" />
   </template>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  name: "App",
-  data() {
-    return {
-      posts: [],
-      signUpModalOpen: false,
-      searchInput: "",
-    };
-  },
-  methods: {
-    handleSearchInput(e) {
-      this.searchInput = e.target.value;
-    },
-    handleEmptySearchInput() {
-      this.searchInput = "";
-    },
-    handleSignUpModal() {
-      this.signUpModalOpen = !this.signUpModalOpen;
-    },
-  },
+  name: "Home",
   computed: {
     filteredPosts() {
-      return this.posts.filter((post) => {
+      return globalContext.posts.filter((post) => {
         return post.attributes.Title.toLowerCase().includes(
-          this.searchInput.toLowerCase()
+          globalContext.search.toLowerCase()
         );
       });
     },
   },
   async mounted() {
-    try {
-      const response = await axios.get(
-        "https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts?populate=*&pagination[page]=1&sort[0]=createdAt:desc"
-      );
-      this.posts = response.data.data;
-    } catch (error) {
-      console.log(error);
-    }
+    await globalContext.getPosts();
   },
 };
 </script>

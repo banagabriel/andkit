@@ -9,13 +9,10 @@ import SigninModal from "../components/SigninModal/SigninModal.vue";
     <PostList :posts="filteredPosts" />
   </template>
   <template v-else>
-    <NotConnected :handleSignInModal="handleSignInModal"/>
+    <NotConnected />
   </template>
   <template v-if="signInModalOpen">
-    <SigninModal
-      :handleUsernameChange="handleUsernameChange"
-      :handleSignInModal="handleSignInModal"
-    />
+    <SigninModal />
   </template>
 </template>
 

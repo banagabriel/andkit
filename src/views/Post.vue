@@ -1,9 +1,11 @@
 <script setup>
 import EditModal from "../components/EditModal/EditModal.vue";
 import FavoriteButton from "../components/FavoriteButton/FavoriteButton.vue";
+import globalContext from '../helpers/helpers'
 </script>
 
 <template>
+
   <article
     v-if="!!post"
     class="max-w-[680px] mx-auto w-full text-center text-[#161c2d] pb-[60px]"
@@ -48,7 +50,6 @@ import FavoriteButton from "../components/FavoriteButton/FavoriteButton.vue";
         </div>
       <div class="flex items-center">
         <FavoriteButton
-          :user="user"
           :post="post"
           :isFavorite="isFavorite"
           :handleIsFavoriteChange="handleIsFavoriteChange"
@@ -95,9 +96,7 @@ export default {
       isFavorite: false,
       isEditable: false,
       openEditModal: false,
-      user: JSON.parse(localStorage.getItem("userData"))
-        ? JSON.parse(localStorage.getItem("userData"))
-        : null,
+      user: globalContext.user
     };
   },
   methods: {
@@ -121,11 +120,11 @@ export default {
     } catch (error) {
       console.log(error);
     }
-    if (this.user && this.post.attributes.author.data.id === this.user.id) {
+    if (globalContext.user && this.post.attributes.author.data.id === this.user.id) {
       this.isEditable = true;
     }
     this.post.attributes.favs.data.forEach((users) => {
-      if (this.user && users.id === this.user.id) {
+      if (globalContext.user && users.id === globalContext.user.id) {
         this.isFavorite = true;
       }
     });

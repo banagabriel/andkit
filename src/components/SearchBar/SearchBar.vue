@@ -1,6 +1,6 @@
 <script setup>
+import globalContext from "../../helpers/helpers";
 defineProps({
-  handleSearchInput: Function,
   filteredPosts: Array,
 });
 </script>
@@ -18,7 +18,8 @@ defineProps({
       class="w-[75%] bg-transparent text-black"
       type="text"
       placeholder="Search"
-      v-on:keyup="handleSearchInput($event)"
+      v-on:keyup="globalContext.handleSearchInput($event)"
+      v-on:keyup.enter="globalContext.handleSearch()"
     />
     <div class="flex items-center w-fit gap-[20px]">
       <p class="text-[#869ab8] uppercase text-[12px]">
@@ -30,9 +31,19 @@ defineProps({
       </p>
       <button
         class="bg-[#335eea] text-white font-[900] text-[17px] leading-[25px]"
+        v-on:click="globalContext.handleSearch()"
       >
         Search
       </button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: "SearchBar",
+  data() {
+    return {};
+  },
+};
+</script>

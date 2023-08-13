@@ -1,8 +1,5 @@
 <script setup>
-defineProps({
-  handleSignInModal: Function,
-  handleUsernameChange: Function,
-});
+import globalContext from "../../helpers/helpers";
 </script>
 
 <template>
@@ -22,10 +19,14 @@ defineProps({
         <h2 class="text-[17px] text-center mb-[10px]">
           Simplify your reading in minutes.
         </h2>
-        <div class="flex flex-col mb-[15px]" v-for="input in newUserForm">
+        <div
+          class="flex flex-col mb-[15px]"
+          v-for="input in globalContext.newUserForm"
+        >
           <input
+            v-if="input.label !== 'username'"
             class="rounded-[6px] bg-transparent border-[1px] h-[50px] px-[20px] py-[14px]"
-            v-on:keyup="updateFields($event)"
+            v-on:keyup="globalContext.updateFields($event)"
             :type="input.type"
             :placeholder="input.placeholder"
             :id="input.label"
@@ -33,13 +34,13 @@ defineProps({
         </div>
         <button
           class="rounded-[5px] py-[10px] mb-[20px] w-full bg-[#335eea] text-white"
-          v-on:click="login()"
+          v-on:click="globalContext.login()"
         >
           Sign Up
         </button>
         <span
           class="absolute bg-[url(./assets/x.png)] bg-no-repeat bg-contain bg-center top-[19px] right-[22px] w-[10px] h-[10px] cursor-pointer"
-          v-on:click="handleSignInModal()"
+          v-on:click="globalContext.handleSignInModal()"
         ></span>
       </div>
     </div>
@@ -47,50 +48,8 @@ defineProps({
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  name: "App",
-  data() {
-    return {
-      newUserForm: {
-        email: {
-          type: "email",
-          label: "email",
-          placeholder: "Your email",
-          value: null,
-        },
-        password: {
-          type: "password",
-          label: "password",
-          placeholder: "Your password",
-          value: null,
-        },
-      },
-    };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await axios.post(
-          "https://wise-dinosaur-ac425bf63d.strapiapp.com/api/auth/local",
-          {
-            identifier: this.newUserForm.email.value,
-            password: this.newUserForm.password.value,
-          }
-        );
-        const { jwt, user } = response.data;
-        window.localStorage.setItem("jwt", jwt);
-        window.localStorage.setItem("userData", JSON.stringify(user));
-        this.handleUsernameChange(user.username);
-        this.handleSignInModal();
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    updateFields(e) {
-      this.newUserForm[e.target.id].value = e.target.value;
-    },
-  },
+  name: "SignInModal",
+  data() { return {} }
 };
 </script>

@@ -1,9 +1,5 @@
 <script setup>
-defineProps({
-  handleSignUpModal: Function,
-  handleSignInModal: Function,
-  username: String,
-});
+import globalContext from "../../helpers/helpers";
 </script>
 
 <template>
@@ -16,7 +12,7 @@ defineProps({
     <div class="flex h-fit gap-[20px]">
       <a
         :class="[
-          route === '/' ? 'text-[#335EEA]' : 'text-[#506690]',
+          globalContext.route === '/' ? 'text-[#335EEA]' : 'text-[#506690]',
           'block h-fit font-[900]',
         ]"
         href="/"
@@ -25,7 +21,9 @@ defineProps({
       </a>
       <a
         :class="[
-          route === '/favorites' ? 'text-[#335EEA]' : 'text-[#506690]',
+          globalContext.route === '/favorites'
+            ? 'text-[#335EEA]'
+            : 'text-[#506690]',
           'block h-fit font-[900]',
         ]"
         href="/favorites"
@@ -36,17 +34,17 @@ defineProps({
     <div class="flex gap-[20px]">
       <button
         :class="[
-          !username ? 'block' : 'hidden',
+          !globalContext.username ? 'block' : 'hidden',
           'bg-transparent border-none text-[#506690] font-[900]',
         ]"
-        v-on:click="handleSignInModal()"
+        v-on:click="globalContext.handleSignInModal()"
       >
         Login
       </button>
       <a
         :class="[
-          !username ? 'hidden' : 'block',
-          route === '/create' ? 'text-[#335EEA]' : 'text-[#506690]',
+          !globalContext.username ? 'hidden' : 'block',
+          globalContext.route === '/create' ? 'text-[#335EEA]' : 'text-[#506690]',
           'bg-transparent border-none font-[900]',
         ]"
         href="/create"
@@ -59,11 +57,9 @@ defineProps({
 
 <script>
 export default {
-  name: "App",
+  name: "Header",
   data() {
-    return {
-      route: window.location.pathname,
-    };
+    return {};
   },
 };
 </script>
