@@ -3,7 +3,7 @@ import globalContext from "../../helpers/helpers";
 </script>
 
 <template>
-  <div class="flex items-center justify-between h-full w-full">
+  <div class="flex flex-col-reverse lg:flex-row items-center justify-between h-full w-full">
     <div
       class="flex flex-col items-center text-center text-[#12263F] max-w-[311px]"
     >

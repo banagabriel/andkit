@@ -17,7 +17,7 @@ days. Here's a list of things that will change:
 - Load more button
 - Social media share buttons
 - CSS details
-- Responsive design
+- Responsive design :white_check_mark:
 
 Things that I won't be able to deliver but must be on the project:
 - Search bar for favorites blog posts

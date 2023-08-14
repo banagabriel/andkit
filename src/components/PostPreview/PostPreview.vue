@@ -30,12 +30,12 @@ defineProps({
   </div>
   <div class="flex flex-col px-[26px] pb-[26px]">
     <h1 class="text-left text-[#161B2D] text-[21px] leading-[28px] mb-[10px]">
-      {{ post.attributes.Title }}
+      {{ post.attributes.Title.substring(0, 22) + "..." }}
     </h1>
     <p
-      class="text-left min-h-[82px] text-[#6B7C93] font-[400] text-[16px] pb-[32px] mb-[15px] border-b-[2px]"
+      class="text-left min-h-[82px] h-full text-[#6B7C93] font-[400] text-[16px] pb-[32px] mb-[15px] border-b-[2px]"
     >
-      {{ post.attributes.Body.substring(0, 60) + "..." }}
+      {{ post.attributes.Body.length < 60 ? post.attributes.Body : post.attributes.Body.substring(0, 60) + "..." }}
     </p>
     <div class="text-[#6b7c93] flex flex-row-reverse justify-between w-full">
       <p class="text-left block w-fit">

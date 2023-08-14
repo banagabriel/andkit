@@ -7,15 +7,15 @@ defineProps({
 
 <template>
   <div
-    class="fixed z-[9999] bg-[#161c2d40] top-0 left-0 h-full w-full flex items-center justify-center"
+    class="fixed z-[9999] px-[20px] bg-[#161c2d40] top-0 left-0 h-full w-full flex items-center justify-center"
     role="dialog"
     aria-modal="true"
     aria-live="assertive"
     aria-labelledby="modal-title"
   >
     <div class="relative flex flex-row text-[#6e84a3] rounded-[5px] bg-white">
-      <img class="block bg-cover" src="../../assets/people.png" alt="" />
-      <div class="pt-[57px] mr-[50px] pb-[36px] ml-[68px] w-[295px]">
+      <img class="hidden lg:block bg-cover" src="../../assets/people.png" alt="" />
+      <div class="pt-[57px] mr-[50px] pb-[36px] ml-[68px] max-w-[295px] w-full">
         <h1 class="text-[31px] text-[#161c2d] text-center w-full mb-[10px]">
           Sign Up
         </h1>
