@@ -23,6 +23,7 @@ Things that I won't be able to deliver but must be on the project:
 - Viewmodel for each page
 - Tests for each viewmodel
 - Tests for each page
+- Good folder structure
 
 ## Features
 
@@ -41,10 +42,6 @@ Things that I won't be able to deliver but must be on the project:
 - Remove a post from the list of favorites. :white_check_mark:
 - Create new blog posts. :white_check_mark:
 - Edit existing blog posts. :white_check_mark:
-
-## Nice-to-have
-- Folder restructure
--
 
 ## Prerequisites
 
