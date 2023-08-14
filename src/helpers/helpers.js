@@ -8,7 +8,10 @@ export default reactive({
   isSearching: false,
   isCreatingPost: false,
   isUploadingBanner: false,
+  openEditModal: false,
   files: null,
+  newTitle: null,
+  newBody: null,
   user: JSON.parse(localStorage.getItem("userData"))
     ? JSON.parse(localStorage.getItem("userData"))
     : null,
@@ -145,19 +148,38 @@ export default reactive({
     this.postInformation.banner = image.data[0];
   },
 
-  async createPost(e) {
-    e.preventDefault()
+  async createPost(e, router) {
+    e.preventDefault();
     try {
-      await axios.post("https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts", {
+      await axios.post(
+        "https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts",
+        {
+          data: {
+            Title: this.postInformation.title,
+            Body: this.postInformation.body,
+            banner: this.postInformation.banner,
+            author: this.postInformation.author,
+            slug: this.postInformation.title.toLowerCase().replaceAll(" ", "-"),
+            favs: { connect: [{ id: this.postInformation.author }] },
+          },
+        }
+      );
+      router.push({ path: "/" });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async handleEditPost(post) {
+    try {
+      await axios.put(`https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts/${post.id}`, {
         data: {
-          Title: this.postInformation.title,
-          Body: this.postInformation.body,
-          banner: this.postInformation.banner,
-          author: this.postInformation.author,
-          slug: this.postInformation.title.toLowerCase().replaceAll(' ', '-'),
-          favs: { connect: [{ id: this.postInformation.author }] }
+          Title: !this.newTitle ? post.attributes.Title : this.newTitle,
+          Body: !this.newBody ? post.attributes.Title : this.newBody,
+          slug: !this.newTitle ? post.attributes.Title : this.newTitle.toLowerCase().replaceAll(' ', '-')
         },
       });
+      this.handleOpenEditModal()
     } catch (error) {
       console.log(error);
     }
@@ -189,11 +211,20 @@ export default reactive({
   handleSignUpModal() {
     this.signUpModalOpen = !this.signUpModalOpen;
   },
-  handleFavoriteChange(event, post, handleIsFavoriteChange) {
+  handleFavoriteChange(event, post, handleIsFavoriteChange, isFavorite) {
     event.preventDefault();
     if (!this.user) return this.handleSignUpModal();
-    this.isFavorite
+    isFavorite
       ? this.setUnfavorite(event, post, handleIsFavoriteChange)
       : this.setFavorite(event, post, handleIsFavoriteChange);
+  },
+  handleOpenEditModal() {
+    this.openEditModal = !this.openEditModal;
+  },
+  handleTitleChange(e) {
+    this.newTitle = e.target.value;
+  },
+  handleBodyChange(e) {
+    this.newBody = e.target.value;
   },
 });

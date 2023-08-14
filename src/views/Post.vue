@@ -1,13 +1,13 @@
 <script setup>
 import EditModal from "../components/EditModal/EditModal.vue";
 import FavoriteButton from "../components/FavoriteButton/FavoriteButton.vue";
-import globalContext from '../helpers/helpers'
+import globalContext from "../helpers/helpers";
 </script>
 
 <template>
-
   <article
     v-if="!!post"
+    :key="globalContext.newTitle"
     class="max-w-[680px] mx-auto w-full text-center text-[#161c2d] pb-[60px]"
   >
     <h1 class="text-[#161c2d] mb-[23px]">{{ post.attributes.Title }}</h1>
@@ -36,25 +36,27 @@ import globalContext from '../helpers/helpers'
         </div>
         <div class="flex w-[80px] gap-[20px]">
           <button
-          v-if="isEditable"
-          :class="[
-            isEditable
-            ? `bg-[url('./assets/pencil-color.png')]`
-            : `bg-[url('./assets/pencil.png')]`,
-            'hover:border-transparent bg-no-repeat bg-transparent bg-cover disabled:opacity-75 disabled:hover:border-transparent h-[16px] w-[16px] p-0',
-          ]"
+            v-if="isEditable"
+            :class="[
+              isEditable
+                ? `bg-[url('./assets/pencil-color.png')]`
+                : `bg-[url('./assets/pencil.png')]`,
+              'hover:border-transparent bg-no-repeat bg-transparent bg-cover disabled:opacity-75 disabled:hover:border-transparent h-[16px] w-[16px] p-0',
+            ]"
             :key="isEditable"
-            v-on:click="handleOpenEditModal()"
-            ></button>
-          </div>
+            v-on:click="globalContext.handleOpenEditModal()"
+          ></button>
         </div>
+      </div>
       <div class="flex items-center">
         <FavoriteButton
           :post="post"
           :isFavorite="isFavorite"
           :handleIsFavoriteChange="handleIsFavoriteChange"
         />
-        <p class="ml-[17px] text-[#869abb] opacity-[70%] uppercase mr-[17px]">Share:</p>
+        <p class="ml-[17px] text-[#869abb] opacity-[70%] uppercase mr-[17px]">
+          Share:
+        </p>
         <div class="flex gap-[19px] items-center">
           <a
             href=""
@@ -72,17 +74,21 @@ import globalContext from '../helpers/helpers'
       </div>
     </div>
     <div class="mb-[66px]">
-      <img class="rounded-[5px] mb-[15px]" :src="post.attributes.banner.data.attributes.url" alt="this is a post image">
-      <p class="text-[#869abb] opacity-[70%]">This is a caption on this photo for reference</p>
+      <img
+        class="rounded-[5px] mb-[15px]"
+        :src="post.attributes.banner.data.attributes.url"
+        alt="this is a post image"
+      />
+      <p class="text-[#869abb] opacity-[70%]">
+        This is a caption on this photo for reference
+      </p>
     </div>
-    <p class="text-left text-[17px] leading-[25px]">{{ post.attributes.Body }}</p>
+    <p class="text-left text-[17px] leading-[25px]">
+      {{ post.attributes.Body }}
+    </p>
   </article>
-  <template v-if="openEditModal">
-    <EditModal
-      :openEditModal="openEditModal"
-      :post="post"
-      :handleOpenEditModal="handleOpenEditModal"
-    />
+  <template v-if="globalContext.openEditModal">
+    <EditModal :post="post" />
   </template>
 </template>
 
@@ -95,8 +101,7 @@ export default {
       post: null,
       isFavorite: false,
       isEditable: false,
-      openEditModal: false,
-      user: globalContext.user
+      user: globalContext.user,
     };
   },
   methods: {
@@ -104,9 +109,7 @@ export default {
       const options = { month: "short", day: "numeric", year: "numeric" };
       return new Date(date).toLocaleDateString(undefined, options);
     },
-    handleOpenEditModal() {
-      this.openEditModal = !this.openEditModal;
-    },
+
     handleIsFavoriteChange() {
       this.isFavorite = !this.isFavorite;
     },
@@ -120,7 +123,10 @@ export default {
     } catch (error) {
       console.log(error);
     }
-    if (globalContext.user && this.post.attributes.author.data.id === this.user.id) {
+    if (
+      globalContext.user &&
+      this.post.attributes.author.data.id === this.user.id
+    ) {
       this.isEditable = true;
     }
     this.post.attributes.favs.data.forEach((users) => {

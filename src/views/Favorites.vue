@@ -2,16 +2,17 @@
 import PostList from "../components/PostList/PostList.vue";
 import NotConnected from "../components/NotConnected/NotConnected.vue";
 import SigninModal from "../components/SigninModal/SigninModal.vue";
+import globalContext from '../helpers/helpers'
 </script>
 
 <template>
-  <template v-if="user">
-    <PostList :posts="filteredPosts" />
+  <template v-if="globalContext.user">
+    <PostList :posts="posts" />
   </template>
   <template v-else>
     <NotConnected />
   </template>
-  <template v-if="signInModalOpen">
+  <template v-if="globalContext.signInModalOpen">
     <SigninModal />
   </template>
 </template>
@@ -24,26 +25,10 @@ export default {
   data() {
     return {
       posts: [],
-      signInModalOpen: false,
-      user: JSON.parse(localStorage.getItem("userData"))
-        ? JSON.parse(localStorage.getItem("userData"))
-        : null,
+      user: globalContext.user
     };
   },
-  methods: {
-    handleSignInModal() {
-      this.signInModalOpen = !this.signInModalOpen;
-    },
-    handleUsernameChange(username) {
-      this.username = username;
-    },
-  },
-  computed: {
-    filteredPosts() {
-      return this.posts
-    },
-  },
-  async mounted () {
+  async mounted() {
     if (!this.user) return;
     try {
       const response = await axios.get(
@@ -53,6 +38,6 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  }
-}
+  },
+};
 </script>
