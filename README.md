@@ -29,7 +29,7 @@ Things that I won't be able to deliver but must be on the project:
 
 ### For Unauthenticated Users
 
-- View available blog posts on the site.:white_check_mark:
+- View available blog posts on the site. :white_check_mark:
 - Access full details of each blog post. :white_check_mark:
 - Search for specific blog posts. :white_check_mark:
 - When marking a post as favorite, an option to sign up or sign in is presented :white_check_mark:
