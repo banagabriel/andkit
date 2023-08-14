@@ -52,6 +52,9 @@ Before you begin, ensure you have the following:
 - npm (Node Package Manager)
 - Git
 
+## Live pages
+- Blog is available on this page: https://andkit.vercel.app/
+- Backend is available on this page (You will need to have access): https://wise-dinosaur-ac425bf63d.strapiapp.com/admin
 
 ## Installation
 
