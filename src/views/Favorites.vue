@@ -2,12 +2,14 @@
 import PostList from "../components/PostList/PostList.vue";
 import NotConnected from "../components/NotConnected/NotConnected.vue";
 import SigninModal from "../components/SigninModal/SigninModal.vue";
-import globalContext from '../helpers/helpers'
+import SearchBar from "../components/SearchBar/SearchBar.vue";
+import globalContext from "../helpers/helpers";
 </script>
 
 <template>
+  <SearchBar :filteredPosts="filteredPosts" />
   <template v-if="globalContext.user">
-    <PostList :posts="posts" />
+    <PostList :posts="filteredPosts" />
   </template>
   <template v-else>
     <NotConnected />
@@ -18,26 +20,22 @@ import globalContext from '../helpers/helpers'
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Favorites",
   data() {
-    return {
-      posts: [],
-      user: globalContext.user
-    };
+    return {};
+  },
+  computed: {
+    filteredPosts() {
+      return globalContext.favoritesPosts.filter((post) => {
+        return post.attributes.Title.toLowerCase().includes(
+          globalContext.search.toLowerCase()
+        );
+      });
+    },
   },
   async mounted() {
-    if (!this.user) return;
-    try {
-      const response = await axios.get(
-        `https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts?populate=*&pagination[page]=1&sort[0]=createdAt:desc&filters[favs][id][$eq]=${this.user.id}`
-      );
-      this.posts = response.data.data;
-    } catch (error) {
-      console.log(error);
-    }
+    await globalContext.getFavoritePosts();
   },
 };
 </script>

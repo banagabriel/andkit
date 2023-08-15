@@ -42,6 +42,7 @@ export default reactive({
   searchInput: "",
   search: "",
   posts: [],
+  favoritesPosts: [],
   postInformation: {
     title: null,
     body: null,
@@ -77,6 +78,18 @@ export default reactive({
         "https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts?populate=*&pagination[page]=1&sort[0]=createdAt:desc"
       );
       this.posts = response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getFavoritePosts() {
+    if (!this.user) return;
+    try {
+      const response = await axios.get(
+        `https://wise-dinosaur-ac425bf63d.strapiapp.com/api/posts?populate=*&pagination[page]=1&sort[0]=createdAt:desc&filters[favs][id][$eq]=${this.user.id}`
+      );
+      this.favoritesPosts = response.data.data;
     } catch (error) {
       console.log(error);
     }

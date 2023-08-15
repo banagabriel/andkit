@@ -18,9 +18,9 @@ days. Here's a list of things that will change:
 - Social media share buttons
 - CSS details
 - Responsive design :white_check_mark:
+- Search bar for favorites blog posts :white_check_mark:
 
 Things that I won't be able to deliver but must be on the project:
-- Search bar for favorites blog posts
 - Viewmodel for each page
 - Tests for each viewmodel
 - Tests for each page
